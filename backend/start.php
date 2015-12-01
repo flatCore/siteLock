@@ -134,7 +134,7 @@ echo $tplform;
 
 
 
-/* list tickr entries */
+/* list siteLock entries */
 
 $cnt_siteLocks = count($siteLocks);
 
@@ -153,7 +153,8 @@ if($cnt_siteLocks < 1) {
 for($i=0;$i<$cnt_siteLocks;$i++) {
 
 	$item_id = $siteLocks[$i]['siteLock_id'];
-	$item_date = date("Y-m-d",$siteLocks[$i]['siteLock_date']);
+	$item_entrydate = date("Y-m-d",$siteLocks[$i]['siteLock_entrydate']);
+	$item_editdate = date("Y-m-d",$siteLocks[$i]['siteLock_editdate']);
 	$item_notes = stripslashes($siteLocks[$i]['siteLock_notes']);
 	$item_modul_query = 'lock='.$item_id;
 	
@@ -162,7 +163,8 @@ for($i=0;$i<$cnt_siteLocks;$i++) {
 	
 	$tpl = $tplfile;
 	$tpl = str_replace("{item_notes}", $item_notes, $tpl);
-	$tpl = str_replace("{item_date}", $item_date, $tpl);
+	$tpl = str_replace("{item_entrydate}", $item_entrydate, $tpl);
+	$tpl = str_replace("{item_editdate}", $item_editdate, $tpl);
 	$tpl = str_replace("{modul_query}", $item_modul_query, $tpl);
 	$tpl = str_replace("{btn_edit}", "$link_edit", $tpl);
 	$tpl = str_replace("{btn_delete}", "$link_delete", $tpl);

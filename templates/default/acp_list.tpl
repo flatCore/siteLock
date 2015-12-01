@@ -1,5 +1,5 @@
 <tr>
-	<td><p>{item_date}</p></td>
+	<td><p>E: {item_entrydate}<br>B: {item_editdate}</p></td>
 	<td>
 		<p>{item_notes}</p>
 		<hr>
