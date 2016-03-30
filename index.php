@@ -7,7 +7,8 @@
  */
 
 
-include("info.inc.php");
+include('info.inc.php');
+include('frontend/functions.php');
 parse_str($page_modul_query);
 $mod_db = $mod['database'];
 $mod_tpl = 'default';
@@ -60,6 +61,7 @@ if(isset($_SESSION['siteLock'])) {
 		$sl_footer = str_replace('{href_logout}', "/$fct_slug?logout", $sl_footer);
 		$modul_content = $sl_footer;
 		$show_contents = true;
+		sl_log();
 	} else {
 		$show_contents = false;
 	}

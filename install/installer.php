@@ -6,11 +6,13 @@ if(!is_file("$mod_db")) {
 
 	$sql_entries_table = generate_sql_query("../modules/siteLock.mod/install/tpl-entries.php");
 	$sql_prefs_table = generate_sql_query("../modules/siteLock.mod/install/tpl-preferences.php");
+	$sql_logs_table = generate_sql_query("../modules/siteLock.mod/install/tpl-logs.php");
 	
 	$dbh = new PDO("sqlite:$mod_db");
 	
 	$dbh->query($sql_entries_table);
 	$dbh->query($sql_prefs_table);
+	$dbh->query($sql_logs_table);
 	
 	$sql_insert = "INSERT INTO prefs (
 			prefs_id,

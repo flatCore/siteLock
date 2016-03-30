@@ -4,7 +4,7 @@
     <label for="InputDate">{label_psw}</label>
     <div class="input-group">
     	<input type="text" class="form-control" name="siteLock_psw" value="">
-			<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span>{siteLock_psw}</div>
+			<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
     </div>
     {psw_helptext}
   </div>

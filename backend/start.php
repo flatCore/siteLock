@@ -92,13 +92,13 @@ foreach ($dbh->query($sql) as $row) {
 $dbh = null;
 
 if(!is_numeric($_REQUEST['edit_id'])) {
-	$btn_value = 'Speichern';
+	$btn_value = $lang['save'];
 	$lockPSW = '';
 	$lockNotes = '';
 	$psw_helptext = '';
 } else {
-	$psw_helptext = '<span class="help-block text-danger">Nur ausfüllen, wenn das Passwort geändert werden soll.</span>';
-	$btn_value = 'Aktualisieren';
+	$psw_helptext = '<span class="help-block">'.$mod_lang['label_psw_help_text'].'</span>';
+	$btn_value = $lang['update'];
 	$edit_id = (int) $_REQUEST['edit_id'];
 	$dbh = new PDO("sqlite:$mod_db");
 	$sql = "SELECT * FROM entries WHERE siteLock_id = $edit_id";
@@ -123,18 +123,21 @@ $tplform = str_replace('{btn_value}', $btn_value, $tplform);
 $tplform = str_replace('{siteLock_psw}', $siteLock_psw, $tplform);
 $tplform = str_replace('{stored_psw}', $siteLock_psw, $tplform);
 $tplform = str_replace('{siteLock_notes}', $siteLock_notes, $tplform);
-$tplform = str_replace('{label_psw}', 'Passwort', $tplform);
+$tplform = str_replace('{label_psw}', $mod_lang['label_psw'], $tplform);
 $tplform = str_replace('{psw_helptext}', $psw_helptext, $tplform);
-$tplform = str_replace('{label_notes}', 'Notizen', $tplform);
+$tplform = str_replace('{label_notes}', $mod_lang['label_notes'], $tplform);
 $tplform = str_replace('{edit_id}', $edit_id, $tplform);
 
 echo $tplform;
 
 
-
-
+echo '<div class="row">';
+echo '<div class="col-md-6">';
 
 /* list siteLock entries */
+
+echo '<fieldset>';
+echo '<legend>'.$mod_lang['label_entries'].'</legend>';
 
 $cnt_siteLocks = count($siteLocks);
 
@@ -143,7 +146,7 @@ $tplfile = file_get_contents("../modules/siteLock.mod/templates/default/acp_list
 echo '<table class="table table-condensed">';
 
 echo '<thead><tr>';
-echo '<th style="width:200px;">Datum</th><th>Notes</th><th style="width:200px;"></th>';
+echo '<th style="width:200px;">'.$mod_lang['label_date'].'</th><th>'.$mod_lang['label_notes'].'</th><th style="width:200px;"></th>';
 echo '</tr></thead>';
 
 if($cnt_siteLocks < 1) {
@@ -158,8 +161,8 @@ for($i=0;$i<$cnt_siteLocks;$i++) {
 	$item_notes = stripslashes($siteLocks[$i]['siteLock_notes']);
 	$item_modul_query = 'lock='.$item_id;
 	
-	$link_edit = "<a class='btn btn-default btn-sm' href='$_SERVER[PHP_SELF]?tn=moduls&sub=siteLock.mod&a=start&edit_id=$item_id'>Bearbeiten</a>";
-	$link_delete = "<a class='btn btn-danger btn-sm' href='$_SERVER[PHP_SELF]?tn=moduls&sub=siteLock.mod&a=start&delete=$item_id' onclick=\"return confirm('$lang[confirm_delete_data]')\">Löschen</a>";
+	$link_edit = "<a class='btn btn-default btn-sm' href='$_SERVER[PHP_SELF]?tn=moduls&sub=siteLock.mod&a=start&edit_id=$item_id'>$lang[edit]</a>";
+	$link_delete = "<a class='btn btn-danger btn-sm' href='$_SERVER[PHP_SELF]?tn=moduls&sub=siteLock.mod&a=start&delete=$item_id' onclick=\"return confirm('$lang[confirm_delete_data]')\">$lang[delete]</a>";
 	
 	$tpl = $tplfile;
 	$tpl = str_replace("{item_notes}", $item_notes, $tpl);
@@ -174,5 +177,60 @@ for($i=0;$i<$cnt_siteLocks;$i++) {
 }
 
 echo '</table>';
+
+echo '</fieldset>';
+
+echo '</div>';
+echo '<div class="col-md-6">';
+
+/* list log entries */
+
+
+echo '<fieldset>';
+echo '<legend>'.$mod_lang['label_logs'].'</legend>';
+
+$dbh = new PDO("sqlite:$mod_db");
+$sql = "SELECT * FROM logs ORDER BY log_id DESC";
+
+foreach ($dbh->query($sql) as $row) {
+	$logs[] = $row;
+}
+
+$dbh = null;
+   
+$cnt_logs = count($logs);
+echo '<div class="scroll-container">';
+echo '<table class="table table-condensed">';
+
+if($cnt_logs < 1) {
+	echo '<td>' . date("Y-m-d",time()) . '</td><td colspan="3"><p class="alert alert-info">Keine Einträge vorhanden.</p></td>';
+}
+
+
+
+for($i=0;$i<$cnt_logs;$i++) {
+	
+	$time = date("Y-m-d H:i:s",$logs[$i]['log_time']);
+	$username = $logs[$i]['log_username'];
+	$ip = $logs[$i]['log_ip'];
+	$msg = $logs[$i]['log_msg'];
+	
+	echo '<tr>';
+	echo '<td class="text-right">'.$time.'</td>';
+	echo '<td>'.$username.'</td>';
+	echo '<td>'.$ip.'</td>';
+	echo '<td>'.$msg.'</td>';
+	echo '</tr>';
+	
+}
+
+echo '</table>';
+echo '</div>';
+
+echo '</fieldset>';
+
+
+echo '</div>';
+echo '</div>';
 
 ?>

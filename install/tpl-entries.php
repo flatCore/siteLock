@@ -2,7 +2,7 @@
 
 /**
  * siteLock Database-Scheme
- * install/update the table for entries
+ * install/update the table for logs
  * 
  */
 
