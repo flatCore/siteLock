@@ -17,6 +17,7 @@
 	<input type="hidden" name="stored_psw" value="{stored_psw}">
 	<input type="submit" name="save" value="{btn_value}" class="btn btn-success">
 	<input type="hidden" name="edit_id" value="{edit_id}">
+	<input type="hidden" name="csrf_token" value="{token}">
 </form>
 
 <hr>

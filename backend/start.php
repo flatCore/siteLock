@@ -1,6 +1,10 @@
 <?php
+	
+if(!defined('FC_INC_DIR')) {
+	die("No access");
+}
 
-echo '<h3>'.$mod_name.' '.$mod_version.' <small>| Übersicht</small></h3>';
+echo '<h3>'.$mod_name.' '.$mod_version.' <small> '.$mod_lang['nav_overview'].'</small></h3>';
 
 include('../modules/'.$mod_name.'.mod/install/installer.php');
 
@@ -127,6 +131,7 @@ $tplform = str_replace('{label_psw}', $mod_lang['label_psw'], $tplform);
 $tplform = str_replace('{psw_helptext}', $psw_helptext, $tplform);
 $tplform = str_replace('{label_notes}', $mod_lang['label_notes'], $tplform);
 $tplform = str_replace('{edit_id}', $edit_id, $tplform);
+$tplform = str_replace('{token}', $_SESSION['token'], $tplform);
 
 echo $tplform;
 

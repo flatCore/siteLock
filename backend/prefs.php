@@ -75,7 +75,7 @@ echo '<div class="form-group">
 echo '</fieldset>';
 
 echo '<input type="submit" class="btn btn-success" name="saveprefs" value="' . $lang['save'] . '">';
-
+echo '<input type="hidden" name="csrf_token" value="'.$_SESSION['token'].'">';
 echo '</form>';
 
 
