@@ -19,7 +19,7 @@ if(is_file($mod_root.'siteLock.mod/lang/'.$languagePack.'.php')) {
 }
 
 $mod['name'] 					= "siteLock";
-$mod['version'] 			= "0.4";
+$mod['version'] 			= "0.4.1";
 $mod['author']				= "flatCore DevTeam";
 $mod['description']		= "Password Protection for pages";
 $mod['database']			= "content/SQLite/siteLock.sqlite3";

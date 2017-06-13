@@ -21,7 +21,7 @@ if(isset($_GET['logout'])) {
 if(is_file("$mod_db")) {
 	
 	//$lock is set by $page_modul_query (lock={integer})
-	
+	parse_str($page_contents['page_modul_query']);
 	$lock = (int) $lock;
 	$mod_db = $mod['database'];
 	$dbh = new PDO("sqlite:$mod_db");
@@ -71,8 +71,8 @@ if(isset($_SESSION['siteLock'])) {
 }
 
 if($show_contents !== true) {
-	$page_content = '';
-	$page_extracontent = '';
+	$page_contents['page_content'] = '';
+	$page_contents['page_extracontent'] = '';
 	$modul_content = $form;
 }
 
